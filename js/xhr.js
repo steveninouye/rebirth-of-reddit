@@ -66,7 +66,24 @@ const addTimeIncrement = i => {
     return ' seconds';
   }
 };
+
+//make a string to use as thumbnail image
+const sampleReddit = (string, dataObj) => {
+  if (string.length < 100) {
+    if (string.length > 0) {
+      string += '<br>';
+    }
+    string += dataObj.data.body;
+    if (dataObj.data.replies) {
+      const nextResponse = dataObj.data.replies.data.children[0];
+      return sampleReddit(string, nextResponse);
+    }
+  }
+  return string;
+};
+
 const linkArray = [];
+
 request('https://www.reddit.com/r/videos.json', function(data) {
   for (let i = 1; i < data.data.children.length; i++) {
     let img = data.data.children[i].data.preview
@@ -76,18 +93,27 @@ request('https://www.reddit.com/r/videos.json', function(data) {
       let title = data.data.children[i].data.title;
       let link = data.data.children[i].data.permalink;
       let author = data.data.children[i].data.author;
+      let id = data.data.children[i].data.name;
       let time = howLongAgo(data.data.children[i].data.created);
       let numOfComments = data.data.children[i].data.num_comments;
       link = link.slice(0, -1) + '.json';
       document.querySelector(
         'section'
-      ).innerHTML += `<div id = 'forum${i}' class = 'box'>
+      ).innerHTML += `<div id = '${id}' class = 'box'>
       <img src = '${img}' class = 'medImage'>
       <h3>${title}</h3>
       <p>By: ${author} ${time}</p>
       <p>${numOfComments} Comments</p>
       </div>`;
-      linkArray.push(link);
+      request(`https://www.reddit.com${link}`, function(data) {
+        //find the div with the right ID
+        let redditID = document.getElementById(
+          data[0].data.children[0].data.name
+        );
+
+        const preview = sampleReddit('', data[1].data.children[0]);
+        redditID.innerHTML += preview;
+      });
     }
   }
 });
