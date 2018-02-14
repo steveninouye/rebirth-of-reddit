@@ -1,18 +1,3 @@
-//make a string to use as thumbnail image
-const sampleReddit = (string, dataObj) => {
-  if (string.length < 100) {
-    if (string.length > 0) {
-      string += '<br>';
-    }
-    string += dataObj.data.body;
-    if (dataObj.data.replies) {
-      const nextResponse = dataObj.data.replies.data.children[0];
-      return sampleReddit(string, nextResponse);
-    }
-  }
-  return string;
-};
-
 request('https://www.reddit.com/r/videos.json', function(data) {
   for (let i = 1; i < data.data.children.length; i++) {
     let img = data.data.children[i].data.preview
