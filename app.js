@@ -19,6 +19,12 @@ app.get('/viewReddit', (req, res) => {
   });
 });
 
+app.get('/random', (req, res) => {
+  res.render('random.hbs', {
+    message: 'hello there from app.js'
+  });
+});
+
 app.listen(3000, () => {
   console.log('Server is up on port 3000');
 });
