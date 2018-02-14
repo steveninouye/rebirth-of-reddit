@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/steveninouye/rebirth-of-reddit#readme",
   "dependencies": {
-    "handlebars": "^4.0.11"
+    "express": "^4.16.2",
+    "handlebars": "^4.0.11",
+    "hbs": "^4.0.1"
   }
 }
