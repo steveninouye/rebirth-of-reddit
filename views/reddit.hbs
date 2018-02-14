@@ -6,32 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
-    <link rel="shortcut icon" type="image/png" href="assets/superman.png" />
+    <link rel="stylesheet" type="text/css" href="styles/sampleReddit.css">
+    <link rel="shortcut icon" type="image/png" href="pictures/superman.png" />
+
     <title>Fastenate</title>
 </head>
 
 <body>
     {{> header}}
+
     <div>
-        <div id='mainPic'>Picture Goes Here</div>
+        <div id='mainPic'></div>
         <div>
-            <p>
-                <span id="title"></span>
-            </p>
+            <p id='title'></p>
             <p>Created
                 <span id="time"></span> Ago by
-                <span id="user"></span>
+                <span id="author"></span>
             </p>
             <p>
-                <span id="numComments"></span>
-                Comments
-            </p>
+                <span id="numComments"></span> Comments</p>
         </div>
     </div>
-    <div id="replies">
 
+    <div id="replies">
     </div>
+
     {{> footer}}
+
     <script src='../js/xhr.js'></script>
     <script src='../js/time.js'></script>
     <script src='../js/sampleReddit.js'></script>

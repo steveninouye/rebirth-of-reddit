@@ -18,24 +18,3 @@ nav {
 nav a {
   vertical-align: middle;
 }
-
-section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.medImage {
-  max-width: 300px;
-  max-height: 200px;
-  margin: auto;
-  display: block;
-}
-
-.box {
-  border: 1px solid black;
-  width: 300px;
-  height: 450px;
-  padding: 8px;
-  margin: 12px 12px 12px 12px;
-}
