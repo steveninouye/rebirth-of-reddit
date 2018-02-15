@@ -7,7 +7,7 @@ request('https://www.reddit.com/r/popular.json', function(data) {
     let img = data.data.children[i].data.preview
       ? data.data.children[i].data.preview.images[0].source.url
       : undefined;
-    let image = img ? `<img src = '${img}' class = 'medImage'>` : null;
+    let image = img ? `<img src = '${img}' class = 'medImage'>` : '';
     let title = data.data.children[i].data.title;
     let author = data.data.children[i].data.author;
     let id = data.data.children[i].data.name;
@@ -30,8 +30,10 @@ request('https://www.reddit.com/r/popular.json', function(data) {
       let redditID = document.getElementById(
         data[0].data.children[0].data.name
       );
-
-      const preview = sampleReddit('', data[1].data.children[0]);
+      const preview =
+        data[1].data.children !== []
+          ? sampleReddit('', data[1].data.children)
+          : '';
       redditID.innerHTML += preview;
     });
   }

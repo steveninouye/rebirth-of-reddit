@@ -40,8 +40,10 @@ request('https://www.reddit.com/r/all.json', function(data) {
         let redditID = document.getElementById(
           data[0].data.children[0].data.name
         );
-
-        const preview = sampleReddit('', data[1].data.children[0]);
+        const preview =
+          data[1].data.children !== []
+            ? sampleReddit('', data[1].data.children)
+            : '';
         redditID.innerHTML += preview;
       });
     }

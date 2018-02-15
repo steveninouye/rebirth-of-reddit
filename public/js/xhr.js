@@ -14,16 +14,18 @@ const request = function(url, callback) {
 };
 
 //make a string to use as thumbnail image
-const sampleReddit = (string, dataObj) => {
-  if (string.length < 100) {
-    if (string.length > 0) {
-      string += '<br>';
+const sampleReddit = (string, array) => {
+  return array.reduce((a, c, i) => {
+    if (a.length < 200) {
+      if (a.length > 0) {
+        a += '<br>';
+      }
+      a += c.data.body;
+      if (c.data.replies) {
+        const nextResponse = c.data.replies.data.children;
+        return sampleReddit(a, nextResponse);
+      }
     }
-    string += dataObj.data.body;
-    if (dataObj.data.replies) {
-      const nextResponse = dataObj.data.replies.data.children[0];
-      return sampleReddit(string, nextResponse);
-    }
-  }
-  return string;
+    return a.slice(0, 200);
+  }, string);
 };

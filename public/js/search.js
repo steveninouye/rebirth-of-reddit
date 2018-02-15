@@ -1,7 +1,7 @@
 function postRequest(id) {
   document.getElementById(id).submit();
 }
-
+redditSubject = redditSubject.replace(/\s/g, '');
 request(`https://www.reddit.com/r/${redditSubject}.json`, function(data) {
   const redditArray = data.data.children;
   const dataLength = redditArray.length;
@@ -40,7 +40,10 @@ request(`https://www.reddit.com/r/${redditSubject}.json`, function(data) {
         let redditID = document.getElementById(
           data[0].data.children[0].data.name
         );
-        const preview = sampleReddit('', data[1].data.children[0]);
+        const preview =
+          data[1].data.children !== []
+            ? sampleReddit('', data[1].data.children)
+            : '';
         redditID.innerHTML += preview;
       });
     }
