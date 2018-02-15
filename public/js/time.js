@@ -31,12 +31,14 @@ const howLongAgo = dateCreated => {
       let numOfTime = changeToTime(c);
       if (numOfTime !== 0) {
         let timeStamp = addTimeIncrement(i);
+        numOfTime = Math.abs(numOfTime);
         a.push(numOfTime + timeStamp);
       }
       //if there is 1 item in the array, push the next time increment into the array
     } else if (a.length === 1) {
       let numOfTime = changeToTime(c);
       let timeStamp = addTimeIncrement(i);
+      numOfTime = Math.abs(numOfTime);
       a.push(numOfTime + timeStamp);
     }
     //return the accumulator

@@ -2,7 +2,7 @@ function postRequest(id) {
   document.getElementById(id).submit();
 }
 
-request('https://www.reddit.com/r/all.json', function(data) {
+request(`https://www.reddit.com/r/${redditSubject}.json`, function(data) {
   const redditArray = data.data.children;
   const dataLength = redditArray.length;
   const randomRedditIndex = Math.floor(Math.random() * dataLength);
@@ -28,19 +28,18 @@ request('https://www.reddit.com/r/all.json', function(data) {
       document.querySelector(
         'section'
       ).innerHTML += `<form id='form${id}' action='/' method='post'>
-        <input name = 'id' type = 'hidden' value = 'https://www.reddit.com${link}'>
-        <div id = '${id}' class = 'box' onclick= 'postRequest("form${id}")'>
-      ${image}
-      <h3>${title}</h3>
-      <p>By: ${author} ${time}</p>
-      <p>${numOfComments} Comments</p>
-      </div></form>`;
+                  <input name = 'id' type = 'hidden' value = 'https://www.reddit.com${link}'>
+                  <div id = '${id}' class = 'box' onclick= 'postRequest("form${id}")'>
+                ${image}
+                <h3>${title}</h3>
+                <p>By: ${author} ${time}</p>
+                <p>${numOfComments} Comments</p>
+                </div></form>`;
       request(`https://www.reddit.com${link}`, function(data) {
         //find the div with the right ID
         let redditID = document.getElementById(
           data[0].data.children[0].data.name
         );
-
         const preview = sampleReddit('', data[1].data.children[0]);
         redditID.innerHTML += preview;
       });

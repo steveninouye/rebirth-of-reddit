@@ -1,10 +1,14 @@
 const request = function(url, callback) {
   const oReq = new XMLHttpRequest();
   oReq.addEventListener('load', function() {
+    const self = this;
     const data = JSON.parse(this.responseText);
     return callback.call(this, data);
   });
   oReq.open('GET', url);
+  oReq.onerror = function() {
+    alert('page not found');
+  };
   oReq.send();
   return oReq;
 };

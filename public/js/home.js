@@ -1,9 +1,13 @@
-request('https://www.reddit.com/r/videos.json', function(data) {
-  for (let i = 1; i < data.data.children.length; i++) {
+function postRequest(id) {
+  document.getElementById(id).submit();
+}
+
+request('https://www.reddit.com/r/popular.json', function(data) {
+  for (let i = 0; i < data.data.children.length; i++) {
     let img = data.data.children[i].data.preview
       ? data.data.children[i].data.preview.images[0].source.url
       : undefined;
-    let image = img ? `<img src = '${img}' class = 'medImage'>` : '';
+    let image = img ? `<img src = '${img}' class = 'medImage'>` : null;
     let title = data.data.children[i].data.title;
     let author = data.data.children[i].data.author;
     let id = data.data.children[i].data.name;
@@ -13,12 +17,14 @@ request('https://www.reddit.com/r/videos.json', function(data) {
     link = link.slice(0, -1) + '.json';
     document.querySelector(
       'section'
-    ).innerHTML += `<a href='/viewReddit'><div id = '${id}' class = 'box'>
+    ).innerHTML += `<form id='form${id}' action='/' method='post'>
+    <input name = 'id' type = 'hidden' value = 'https://www.reddit.com${link}'>
+      <div id = '${id}' class = 'box' onclick= 'postRequest("form${id}")'>
       ${image}
       <h3>${title}</h3>
       <p>By: ${author} ${time}</p>
       <p>${numOfComments} Comments</p>
-      </div></a>`;
+      </div></form>`;
     request(`https://www.reddit.com${link}`, function(data) {
       //find the div with the right ID
       let redditID = document.getElementById(
